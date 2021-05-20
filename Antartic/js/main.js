@@ -8,4 +8,6 @@ let mainState = {
     update: gameUpdate
 }
 
-game.state.add("main", mainState);
+function StartGame() {
+    game.state.add("main", mainState);
+}
