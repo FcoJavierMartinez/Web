@@ -6,7 +6,7 @@ let platformState = {
 }
 
 function loadPlatformAssets() {
-
+//background,mainland, platforms,collectableitems,player...
 }
 
 function createPlatformLevel(){
