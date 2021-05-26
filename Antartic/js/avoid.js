@@ -17,6 +17,10 @@ function loadAvoidImages() {
     game.load.image('prota', 'assets/imgs/falsoprota.png');
 }
 
+function loadAvoidSprites() {
+
+}
+
 function createAvoidLevel() {
     //Set World bounds (arreglar que no son los que tocan)
     game.world.setBounds(0,0,AVOID_WIDTH,AVOID_HEIGHT);
@@ -36,12 +40,18 @@ function createAvoidLevel() {
 
     //Camera follows the player
     game.camera.follow(player);
+
+    //Controls
+    cursors = game.input.keyboard.createCursorKeys();
 }
 
 function updateAvoidLevel() {
-    
-}
+    //Movimiento del pingüino
+    player.body.velocity.x = 0;
 
-function loadAvoidSprites() {
-
+    if (cursors.left.isDown) {
+        player.body.velocity.x = -PLAYER_VELOCITY;
+    } else if (cursors.right.isDown) {
+        player.body.velocity.x = PLAYER_VELOCITY;
+    }
 }
