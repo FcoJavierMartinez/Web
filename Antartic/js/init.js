@@ -7,8 +7,8 @@ let initState = {
 
 function preloadInit() {
     game.load.image('bgInit', 'assets/imgs/InitBackground.png');
-    game.load.image('instButton', 'assets/imgs/btnInstruction.jpg');
-    game.load.image('playButton', 'assets/imgs/btnPlay.jpg');
+    game.load.image('instButton', 'assets/imgs/InstructionButton.png');
+    game.load.image('playButton', 'assets/imgs/PlayButton.png');
 }
 
 function createInit() {
