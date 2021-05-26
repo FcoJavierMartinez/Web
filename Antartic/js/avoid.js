@@ -1,3 +1,6 @@
+const AVOID_WIDTH = 2400;
+const AVOID_HEIGHT = 600;
+
 let avoidState = {
     preload: loadAvoidAssets,
     create: createAvoidLevel,
@@ -16,7 +19,7 @@ function loadAvoidImages() {
 
 function createAvoidLevel() {
     //Set World bounds (arreglar que no son los que tocan)
-    game.world.setBounds(0,0,GAME_WIDTH,GAME_HEIGHT);
+    game.world.setBounds(0,0,AVOID_WIDTH,AVOID_HEIGHT);
 
     //Background
     let bgAvoid = game.add.tileSprite(0,0, game.world.width, game.world.height, 'backgAvoid');
