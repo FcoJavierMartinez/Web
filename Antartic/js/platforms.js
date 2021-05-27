@@ -7,6 +7,16 @@ let platformState = {
 
 function loadPlatformAssets() {
 //background,mainland, platforms,collectableitems,player...
+    loadPlatformSprites();
+    loadPlatformImages();
+}
+
+function loadPlatformSprite(){
+    
+}
+
+function loadPlatformImages(){
+
 }
 
 function createPlatformLevel(){
