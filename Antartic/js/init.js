@@ -14,8 +14,8 @@ function preloadInit() {
 function createInit() {
     game.add.image(0,0,'bgInit');
 
-    btnPlay = game.add.button(game.world.width/ 2, game.world.height/3, 'playButton', onPlayButtonPressed);
-    btnInstruction = game.add.button(game.world.width/2, game.world.height/3 + 140, 'instButton', onInstructionButtonPressed);
+    btnPlay = game.add.button(game.world.width/ 3, game.world.height/3, 'playButton', onPlayButtonPressed);
+    btnInstruction = game.add.button(game.world.width/3, game.world.height/3 + 140, 'instButton', onInstructionButtonPressed);
 }
 
 function onPlayButtonPressed () {
