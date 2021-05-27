@@ -12,7 +12,8 @@ function StartGame() {
     game.state.add("init",initState);
     game.state.add("instructions", instructionState);
     game.state.add("avoid",avoidState);
+    game.state.add("timed", timedState);
     game.state.add("platform",platformState);
 
-    game.state.start('init');
+    game.state.start('timed');
 }
