@@ -12,7 +12,7 @@ function loadPlatformAssets() {
 }
 
 function loadPlatformSprite(){
-    
+
 }
 
 function loadPlatformImages(){
