@@ -13,7 +13,9 @@ function loadAvoidAssets() {
 }
 
 function loadAvoidImages() {
-    game.load.image('backgAvoid','assets/imgs/AvoidBackground.png');
+    game.load.image('backgBackAvoid','assets/imgs/AvoidBackground_back.png');
+    game.load.image('backgMediumAvoid', 'assets/imgs/AvoidBackground_medium.png');
+    game.load.image('backgFrontAvoid', 'assets/imgs/AvoidBackground_front.png');
     game.load.image('prota', 'assets/imgs/falsoprota.png');
 }
 
@@ -26,8 +28,12 @@ function createAvoidLevel() {
     game.world.setBounds(0,0,AVOID_WIDTH,AVOID_HEIGHT);
 
     //Background
-    let bgAvoid = game.add.tileSprite(0,0, game.world.width, game.world.height, 'backgAvoid');
-    bgAvoid.scrollFactorX = 0.7;
+    let bgBackAvoid = game.add.tileSprite(0,0, game.world.width, game.world.height, 'backgBackAvoid');
+    let bgMediumAvoid = game.add.tileSprite(0,0,game.world.width, game.world.height, 'backgMediumAvoid');
+    let bgFrontAvoid = game.add.tileSprite(0,0,game.world.width, game.world.height, 'backgFrontAvoid');
+    bgBackAvoid.scrollFactorX = 0.5;
+    bgMediumAvoid.scrollFactorX = 0.8;
+    bgFrontAvoid.scrollFactorX = 1;
 
     //Create player
     player = game.add.sprite(35,410,'prota');
