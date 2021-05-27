@@ -16,11 +16,10 @@ function loadAvoidImages() {
     game.load.image('backgBackAvoid','assets/imgs/AvoidBackground_back.png');
     game.load.image('backgMediumAvoid', 'assets/imgs/AvoidBackground_medium.png');
     game.load.image('backgFrontAvoid', 'assets/imgs/AvoidBackground_front.png');
-    game.load.image('prota', 'assets/imgs/falsoprota.png');
 }
 
 function loadAvoidSprites() {
-
+    game.load.spritesheet('prota', 'assets/imgs/Gunterprota-Sheet.png',100,100);
 }
 
 function createAvoidLevel() {
@@ -47,6 +46,9 @@ function createAvoidLevel() {
     //Camera follows the player
     game.camera.follow(player);
 
+    //Animation
+    player.animations.add('left', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],true);
+    player.animations.add('right',[19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37],true);
     //Controls
     cursors = game.input.keyboard.createCursorKeys();
 }
@@ -57,7 +59,9 @@ function updateAvoidLevel() {
 
     if (cursors.left.isDown) {
         player.body.velocity.x = -PLAYER_VELOCITY;
+        player.animations.play('left',20);
     } else if (cursors.right.isDown) {
         player.body.velocity.x = PLAYER_VELOCITY;
+        player.animations.play('right',20);
     }
 }
