@@ -101,4 +101,9 @@ function updateAvoidLevel() {
         player.body.velocity.x = PLAYER_VELOCITY;
         player.animations.play('right',20);
     }
+    game.physics.arcade.overlap(chuzos, player, chuzoHitsPlayer, null, this);
+}
+
+function chuzoHitsPlayer(player, chuzo) {
+    chuzo.kill();
 }
