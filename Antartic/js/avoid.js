@@ -3,6 +3,8 @@ const AVOID_HEIGHT = 600;
 const CHUZOS_GROUP_SIZE = 200;
 const TIMER_RHYTHM = 0.1 * Phaser.Timer.SECOND;
 let chuzos;
+let goRight = true;
+let bgFrontAvoid;
 let chuzosProbability = 0.4;
 let chuzosVelocity = 200;
 
@@ -20,7 +22,7 @@ function loadAvoidAssets() {
 function loadAvoidImages() {
     game.load.image('backgBackAvoid','assets/imgs/AvoidBackground_back.png');
     game.load.image('backgMediumAvoid', 'assets/imgs/AvoidBackground_medium.png');
-    game.load.image('backgFrontAvoid', 'assets/imgs/AvoidBackground_front.png');
+    game.load.image('backgFrontAvoid', 'assets/imgs/suelo_avoid.png');
     game.load.image('chuzo', 'assets/imgs/Chuzo.png');
 }
 
@@ -35,10 +37,11 @@ function createAvoidLevel() {
     //Background
     let bgBackAvoid = game.add.tileSprite(0,0, game.world.width, game.world.height, 'backgBackAvoid');
     let bgMediumAvoid = game.add.tileSprite(0,0,game.world.width, game.world.height, 'backgMediumAvoid');
-    let bgFrontAvoid = game.add.tileSprite(0,0,game.world.width, game.world.height, 'backgFrontAvoid');
+    bgFrontAvoid = game.add.sprite(0,AVOID_HEIGHT - 116,'backgFrontAvoid');
     bgBackAvoid.scrollFactorX = 0.5;
     bgMediumAvoid.scrollFactorX = 0.8;
-    bgFrontAvoid.scrollFactorX = 1;
+    game.physics.arcade.enable(bgFrontAvoid);
+    bgFrontAvoid.body.immovable = true;
 
     //Create player
     player = game.add.sprite(35,410,'prota');
@@ -84,6 +87,9 @@ function activateChuzo() {
             chuzo.body.velocity.y = chuzosVelocity;
         }
     }
+    if (cursors.up.isDown && player.body.touching.down){
+        player.body.velocity.y = -PLAYER_VELOCITY * 1.5;
+    }
 }
 
 function resetMember(item) {
@@ -95,15 +101,32 @@ function updateAvoidLevel() {
     player.body.velocity.x = 0;
 
     if (cursors.left.isDown) {
+        goRight = false;
         player.body.velocity.x = -PLAYER_VELOCITY;
         player.animations.play('left',20);
     } else if (cursors.right.isDown) {
+        goRight = true;
         player.body.velocity.x = PLAYER_VELOCITY;
         player.animations.play('right',20);
+    }else{
+        stopPlayer();
     }
     game.physics.arcade.overlap(chuzos, player, chuzoHitsPlayer, null, this);
+
+    //Collide with the ground
+    game.physics.arcade.collide(player, bgFrontAvoid);
 }
 
 function chuzoHitsPlayer(player, chuzo) {
     chuzo.kill();
+}
+
+function stopPlayer(){
+    player.animations.stop();
+    if (goRight){
+        player.frame = 19;
+    }
+    else{
+        player.frame = 18;
+    }
 }
