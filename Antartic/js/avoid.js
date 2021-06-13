@@ -4,7 +4,7 @@ const CHUZOS_GROUP_SIZE = 200;
 const TIMER_RHYTHM = 0.1 * Phaser.Timer.SECOND;
 let chuzos;
 let goRight = true;
-let bgFrontAvoid;
+let bgFrontAvoid, bgMediumAvoid, bgBackAvoid;
 let chuzosProbability = 0.4;
 let chuzosVelocity = 200;
 
@@ -35,11 +35,9 @@ function createAvoidLevel() {
     game.world.setBounds(0,0,AVOID_WIDTH,AVOID_HEIGHT);
 
     //Background
-    let bgBackAvoid = game.add.tileSprite(0,0, game.world.width, game.world.height, 'backgBackAvoid');
-    let bgMediumAvoid = game.add.tileSprite(0,0,game.world.width, game.world.height, 'backgMediumAvoid');
-    bgFrontAvoid = game.add.sprite(0,AVOID_HEIGHT - 116,'backgFrontAvoid');
-    bgBackAvoid.scrollFactorX = 0.5;
-    bgMediumAvoid.scrollFactorX = 0.8;
+    bgBackAvoid = game.add.tileSprite(0,0, game.world.width, game.world.height, 'backgBackAvoid');
+    bgMediumAvoid = game.add.tileSprite(0,0,game.world.width, game.world.height, 'backgMediumAvoid');
+    bgFrontAvoid = game.add.tileSprite(0,AVOID_HEIGHT - 116,game.world.width,game.world.height,'backgFrontAvoid');
     game.physics.arcade.enable(bgFrontAvoid);
     bgFrontAvoid.body.immovable = true;
 
@@ -61,6 +59,7 @@ function createAvoidLevel() {
     //Controls
     cursors = game.input.keyboard.createCursorKeys();
 
+    //Create chuzos
     createChuzos(CHUZOS_GROUP_SIZE);
 }
 
@@ -104,10 +103,16 @@ function updateAvoidLevel() {
         goRight = false;
         player.body.velocity.x = -PLAYER_VELOCITY;
         player.animations.play('left',20);
+        bgBackAvoid.tilePosition.x +=0.05;
+        bgMediumAvoid.tilePosition.x += 0.3;
+        bgFrontAvoid.tilePosition.x += 0.75;
     } else if (cursors.right.isDown) {
         goRight = true;
         player.body.velocity.x = PLAYER_VELOCITY;
         player.animations.play('right',20);
+        bgBackAvoid.tilePosition.x -=0.05;
+        bgMediumAvoid.tilePosition.x -= 0.3;
+        bgFrontAvoid.tilePosition.x -= 0.75;
     }else{
         stopPlayer();
     }
