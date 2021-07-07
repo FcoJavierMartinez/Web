@@ -1,12 +1,14 @@
 const AVOID_WIDTH = 2400;
 const AVOID_HEIGHT = 600;
-const CHUZOS_GROUP_SIZE = 200;
+const CHUZOS_GROUP_SIZE = 300;
+const ROMPE_CHUZOS_GROUP_SIZE = 50;
 const TIMER_RHYTHM = 0.1 * Phaser.Timer.SECOND;
 let chuzos;
 let goRight = true;
 let bgFrontAvoid, bgMediumAvoid, bgBackAvoid;
 let chuzosProbability = 0.4;
 let chuzosVelocity = 200;
+let rompeChuzos;
 
 let avoidState = {
     preload: loadAvoidAssets,
@@ -28,6 +30,7 @@ function loadAvoidImages() {
 
 function loadAvoidSprites() {
     game.load.spritesheet('prota', 'assets/imgs/Gunterprota-Sheet.png',100,100);
+    game.load.spritesheet('romper', 'assets/imgs/Chuzo-Sheet.png',29,58);
 }
 
 function createAvoidLevel() {
@@ -61,6 +64,7 @@ function createAvoidLevel() {
 
     //Create chuzos
     createChuzos(CHUZOS_GROUP_SIZE);
+    createRompeChuzos(ROMPE_CHUZOS_GROUP_SIZE);
 }
 
 function createChuzos(size) {
@@ -89,6 +93,26 @@ function activateChuzo() {
     if (cursors.up.isDown && player.body.touching.down){
         player.body.velocity.y = -PLAYER_VELOCITY * 1.5;
     }
+}
+
+function createRompeChuzos(size) {
+    rompeChuzos = game.add.group();
+    rompeChuzos.createMultiple(size,'romper');
+    rompeChuzos.forEach(setupRompeChuzos, this);
+}
+
+function setupRompeChuzos(rompeChuzo) {
+    rompeChuzo.anchor.x = 0.5;
+    rompeChuzo.anchor.y = 0.25;
+    rompeChuzo.animations.add('break');
+}
+
+function displayBreak(chuzo) {
+    let rompeChuzo = rompeChuzos.getFirstExists(false);
+    let x = chuzo.body.center.x;
+    let y = chuzo.body.center.y;
+    rompeChuzo.reset(x, y);
+    rompeChuzo.play('break', 30, false, true);
 }
 
 function resetMember(item) {
@@ -124,6 +148,7 @@ function updateAvoidLevel() {
 
 function chuzoHitsPlayer(player, chuzo) {
     chuzo.kill();
+    displayBreak(chuzo);
 }
 
 function stopPlayer(){
