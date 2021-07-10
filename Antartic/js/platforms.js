@@ -73,19 +73,22 @@ function updatePlatformLevel() {
         goRight = false;
         player.body.velocity.x = -PLAYER_VELOCITY;
         player.animations.play('left', 20);
-        bgBackAvoid.tilePosition.x += 0.05;
-        bgMediumAvoid.tilePosition.x += 0.3;
-        bgFrontAvoid.tilePosition.x += 0.75;
+        bgBackPlatform.tilePosition.x += 0.05;
+        bgMediumPlatform.tilePosition.x += 0.3;
+        bgFrontPlatform.tilePosition.x += 0.75;
     } else if (cursors.right.isDown) {
         goRight = true;
         player.body.velocity.x = PLAYER_VELOCITY;
         player.animations.play('right', 20);
-        bgBackAvoid.tilePosition.x -= 0.05;
-        bgMediumAvoid.tilePosition.x -= 0.3;
-        bgFrontAvoid.tilePosition.x -= 0.75;
+        bgBackPlatform.tilePosition.x -= 0.05;
+        bgMediumPlatform.tilePosition.x -= 0.3;
+        bgFrontPlatform.tilePosition.x -= 0.75;
     } else {
         stopPlayer();
     }
+
+    //Collide with the ground
+    game.physics.arcade.collide(player, PlPrincipalPlatform);
 
 }
 
