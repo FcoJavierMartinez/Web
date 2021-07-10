@@ -18,7 +18,6 @@ function loadPlatformAssets() {
 function loadPlatformSprites() {
 
     game.load.spritesheet('prota', 'assets/imgs/Gunterprota-Sheet.png', 100, 100);
-    game.load.spritesheet('romper', 'assets/imgs/Chuzo-Sheet.png', 29, 58);
     game.load.image('PrincipalPlatform','assets/imgs/Platform_PrincipalPlatform.png');
 }
 
