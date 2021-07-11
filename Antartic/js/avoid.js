@@ -77,8 +77,8 @@ function createAvoidLevel() {
 
 function createAvoidHud() {
     hudGroup = game.add.group();
-    hudGroup.create(5,5,'holder');
     healthBar = hudGroup.create(5,5,'healthBar');
+    hudGroup.create(5,5,'holder');
     hudGroup.fixedToCamera = true;
     healthValue = AVOID_HEALTH;
 }
@@ -165,9 +165,15 @@ function updateAvoidLevel() {
 }
 
 function chuzoHitsPlayer(player, chuzo) {
-    healthValue = healthValue - 1;
+    
     chuzo.kill();
     displayBreak(chuzo);
+    if(healthValue > 0){
+        healthValue = healthValue - 1;
+        healthBar.width = healthBar.width - (healthBar.width/(healthValue+1));
+        healthBar.reset(5,5);
+    }else
+        game.state.start('avoid');
 }
 
 function chuzoHitsGround(bgFrontAvoid, chuzo) {
