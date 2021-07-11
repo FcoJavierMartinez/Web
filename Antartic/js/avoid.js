@@ -2,6 +2,7 @@ const AVOID_WIDTH = 2400;
 const AVOID_HEIGHT = 600;
 const CHUZOS_GROUP_SIZE = 300;
 const ROMPE_CHUZOS_GROUP_SIZE = 50;
+const AVOID_HEALTH = 6;
 const TIMER_RHYTHM = 0.1 * Phaser.Timer.SECOND;
 let chuzos;
 let goRight = true;
@@ -79,6 +80,7 @@ function createAvoidHud() {
     hudGroup.create(5,5,'holder');
     healthBar = hudGroup.create(5,5,'healthBar');
     hudGroup.fixedToCamera = true;
+    healthValue = AVOID_HEALTH;
 }
 
 function createChuzos(size) {
@@ -163,6 +165,7 @@ function updateAvoidLevel() {
 }
 
 function chuzoHitsPlayer(player, chuzo) {
+    healthValue = healthValue - 1;
     chuzo.kill();
     displayBreak(chuzo);
 }
