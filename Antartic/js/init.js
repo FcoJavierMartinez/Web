@@ -19,7 +19,7 @@ function createInit() {
 }
 
 function onPlayButtonPressed () {
-    game.state.start('platform');
+    game.state.start('avoid');
 }
 
 function onInstructionButtonPressed () {

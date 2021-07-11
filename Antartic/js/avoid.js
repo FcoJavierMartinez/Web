@@ -48,6 +48,9 @@ function createAvoidLevel() {
     game.physics.arcade.enable(bgFrontAvoid);
     bgFrontAvoid.body.immovable = true;
 
+    //Create Hud
+    createAvoidHud();
+
     //Create player
     player = game.add.sprite(35, 410, 'prota');
     player.anchor.setTo(0.5, 0.5);
@@ -69,6 +72,13 @@ function createAvoidLevel() {
     //Create chuzos
     createChuzos(CHUZOS_GROUP_SIZE);
     createRompeChuzos(ROMPE_CHUZOS_GROUP_SIZE);
+}
+
+function createAvoidHud() {
+    hudGroup = game.add.group();
+    hudGroup.create(5,5,'holder');
+    healthBar = hudGroup.create(5,5,'healthBar');
+    hudGroup.fixedToCamera = true;
 }
 
 function createChuzos(size) {
