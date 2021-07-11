@@ -38,7 +38,7 @@ function createPlatformLevel() {
 
     game.world.setBounds(0, 0, PLATFORM_WIDTH, PLATFORM_HEIGHT);
     bgBackPlatform = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'backgBackPlatform');
-    bgMediumPlatform  = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'backgMediumPlatform');
+    bgMediumPlatform  = game.add.tileSprite(0, 5, game.world.width, game.world.height, 'backgMediumPlatform');
     bgFrontPlatform  = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'backgFrontPlatform');
     
     PlPrincipalPlatform = game.add.sprite(0, 536,'PrincipalPlatform');
