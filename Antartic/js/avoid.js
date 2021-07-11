@@ -2,7 +2,7 @@ const AVOID_WIDTH = 2400;
 const AVOID_HEIGHT = 600;
 const CHUZOS_GROUP_SIZE = 300;
 const ROMPE_CHUZOS_GROUP_SIZE = 50;
-const AVOID_HEALTH = 6;
+const AVOID_HEALTH = 20;
 const TIMER_RHYTHM = 0.1 * Phaser.Timer.SECOND;
 let chuzos;
 let goRight = true;
@@ -13,6 +13,7 @@ let rompeChuzos;
 let avoid_score;
 let healthValue, healthBar, healthTween;
 let avoid_transicion;
+let endAvoid = false;
 
 let avoidState = {
     preload: loadAvoidAssets,
@@ -168,12 +169,13 @@ function updateAvoidLevel() {
     game.physics.arcade.overlap(chuzos, player, chuzoHitsPlayer, null, this);
     game.physics.arcade.overlap(chuzos, bgFrontAvoid, chuzoHitsGround, null, this);
 
-    if (player.body.center.x > AVOID_WIDTH - 100) {
-        avoid_transicion.once('animationcomplete', AvoidNextLevel);
+    if (player.body.center.x > AVOID_WIDTH - 100 && endAvoid == false) {
 
-        /*
-        avoid_transicion.animations.play('transicion', 30);
-        game.state.start('platform');*/
+        avoid_transicion.animations.play('exit', 30);
+        chuzos.removeAll(true);
+        endAvoid = true;
+        game.time.events.add(1000, AvoidNextLevel, this);
+        
     }
     //Collide with the ground
     game.physics.arcade.collide(player, bgFrontAvoid);
