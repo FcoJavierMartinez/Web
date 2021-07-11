@@ -12,7 +12,7 @@ let chuzosVelocity = 200;
 let rompeChuzos;
 let avoid_score;
 let healthValue, healthBar, healthTween;
-let avoidSalida;
+let avoid_transicion;
 
 let avoidState = {
     preload: loadAvoidAssets,
@@ -37,6 +37,7 @@ function loadAvoidImages() {
 function loadAvoidSprites() {
     game.load.spritesheet('prota', 'assets/imgs/Gunterprota-Sheet.png', 100, 100);
     game.load.spritesheet('romper', 'assets/imgs/Chuzo-Sheet.png', 29, 58);
+    game.load.spritesheet('transicion','assets/imgs/transicion-Sheet.png', 800, 600);
 }
 
 function createAvoidLevel() {
@@ -68,6 +69,12 @@ function createAvoidLevel() {
     //Animation
     player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], true);
     player.animations.add('right', [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37], true);
+
+
+    //Transicion
+    avoid_transicion = game.add.sprite(AVOID_WIDTH - 800,0,'transicion');
+    avoid_transicion.animations.add('exit', [0,1,2,3,4,5,6,7], false);
+
     //Controls
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -162,7 +169,11 @@ function updateAvoidLevel() {
     game.physics.arcade.overlap(chuzos, bgFrontAvoid, chuzoHitsGround, null, this);
 
     if (player.body.center.x > AVOID_WIDTH - 100) {
-        game.state.start('platform');
+        avoid_transicion.once('animationcomplete', AvoidNextLevel);
+
+        /*
+        avoid_transicion.animations.play('transicion', 30);
+        game.state.start('platform');*/
     }
     //Collide with the ground
     game.physics.arcade.collide(player, bgFrontAvoid);
@@ -182,6 +193,10 @@ function chuzoHitsPlayer(player, chuzo) {
 function chuzoHitsGround(bgFrontAvoid, chuzo) {
     chuzo.kill();
     displayBreak(chuzo);
+}
+
+function AvoidNextLevel () {
+    game.state.start('platform');
 }
 
 function stopPlayer() {
