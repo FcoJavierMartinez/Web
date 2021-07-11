@@ -12,6 +12,7 @@ let chuzosVelocity = 200;
 let rompeChuzos;
 let avoid_score;
 let healthValue, healthBar, healthTween;
+let avoidSalida;
 
 let avoidState = {
     preload: loadAvoidAssets,
@@ -29,8 +30,8 @@ function loadAvoidImages() {
     game.load.image('backgMediumAvoid', 'assets/imgs/AvoidBackground_medium.png');
     game.load.image('backgFrontAvoid', 'assets/imgs/AvoidBackground_frontFixed.png');
     game.load.image('chuzo', 'assets/imgs/Chuzo.png');
-    game.load.image('holder','assets/imgs/Health_BarHandler.png');
-    game.load.image('healthBar','assets/imgs/Health_Bar.png');
+    game.load.image('holder', 'assets/imgs/Health_BarHandler.png');
+    game.load.image('healthBar', 'assets/imgs/Health_Bar.png');
 }
 
 function loadAvoidSprites() {
@@ -77,8 +78,8 @@ function createAvoidLevel() {
 
 function createAvoidHud() {
     hudGroup = game.add.group();
-    healthBar = hudGroup.create(5,5,'healthBar');
-    hudGroup.create(5,5,'holder');
+    healthBar = hudGroup.create(5, 5, 'healthBar');
+    hudGroup.create(5, 5, 'holder');
     hudGroup.fixedToCamera = true;
     healthValue = AVOID_HEALTH;
 }
@@ -160,19 +161,21 @@ function updateAvoidLevel() {
     game.physics.arcade.overlap(chuzos, player, chuzoHitsPlayer, null, this);
     game.physics.arcade.overlap(chuzos, bgFrontAvoid, chuzoHitsGround, null, this);
 
+    if (player.body.center.x > AVOID_WIDTH - 100) {
+        game.state.start('platform');
+    }
     //Collide with the ground
     game.physics.arcade.collide(player, bgFrontAvoid);
 }
 
 function chuzoHitsPlayer(player, chuzo) {
-    
     chuzo.kill();
     displayBreak(chuzo);
-    if(healthValue > 0){
+    if (healthValue > 1) {
         healthValue = healthValue - 1;
-        healthBar.width = healthBar.width - (healthBar.width/(healthValue+1));
-        healthBar.reset(5,5);
-    }else
+        healthBar.width = healthBar.width - (healthBar.width / (healthValue + 1));
+        healthBar.reset(5, 5);
+    } else
         game.state.start('avoid');
 }
 
