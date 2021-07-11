@@ -9,6 +9,8 @@ let bgFrontAvoid, bgMediumAvoid, bgBackAvoid;
 let chuzosProbability = 0.4;
 let chuzosVelocity = 200;
 let rompeChuzos;
+let avoid_score;
+let healthValue, healthBar, healthTween;
 
 let avoidState = {
     preload: loadAvoidAssets,
@@ -26,6 +28,8 @@ function loadAvoidImages() {
     game.load.image('backgMediumAvoid', 'assets/imgs/AvoidBackground_medium.png');
     game.load.image('backgFrontAvoid', 'assets/imgs/AvoidBackground_frontFixed.png');
     game.load.image('chuzo', 'assets/imgs/Chuzo.png');
+    game.load.image('holder','assets/imgs/Health_BarHandler.png');
+    game.load.image('healthBar','assets/imgs/Health_Bar.png');
 }
 
 function loadAvoidSprites() {

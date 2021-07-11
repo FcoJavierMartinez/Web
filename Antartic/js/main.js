@@ -5,6 +5,7 @@ const PLAYER_VELOCITY = 150;
 let global_score = 0;
 let player, cursors;
 let game;
+let hudGroup, hudTime;
 
 window.onload = StartGame();
 
