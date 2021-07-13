@@ -20,8 +20,8 @@ function loadPlatformAssets() {
 function loadPlatformSprites() {
 
     game.load.spritesheet('prota', 'assets/imgs/Gunterprota-Sheet.png', 100, 100);
-    game.load.image('PrincipalPlatform','assets/imgs/Platform_PrincipalPlatform.png');
-    game.load.spritesheet('transicionIn','assets/imgs/transicion-Sheet.png', 800, 600);
+    game.load.image('PrincipalPlatform', 'assets/imgs/Platform_PrincipalPlatform.png');
+    game.load.spritesheet('transicionIn', 'assets/imgs/transicion-Sheet.png', 800, 600);
     game.load.spritesheet('backWhite', 'assets/imgs/transicionBackwards-sheet.png', 800, 600);
 }
 
@@ -29,19 +29,19 @@ function loadPlatformImages() {
 
     game.load.image('backgBackPlatform', 'assets/imgs/PlatformBackground_Back.png');
     game.load.image('backgMediumPlatform', 'assets/imgs/PlatformBackground_Medium.png');
-    game.load.image('backgFrontPlatform','assets/imgs/PlatformBackground_Front.png');
-    
-    
+    game.load.image('backgFrontPlatform', 'assets/imgs/PlatformBackground_Front.png');
+
+
 }
 
 function createPlatformLevel() {
 
     game.world.setBounds(0, 0, PLATFORM_WIDTH, PLATFORM_HEIGHT);
     bgBackPlatform = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'backgBackPlatform');
-    bgMediumPlatform  = game.add.tileSprite(0, 5, game.world.width, game.world.height, 'backgMediumPlatform');
-    bgFrontPlatform  = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'backgFrontPlatform');
-    
-    PlPrincipalPlatform = game.add.sprite(0, 536,'PrincipalPlatform');
+    bgMediumPlatform = game.add.tileSprite(0, 5, game.world.width, game.world.height, 'backgMediumPlatform');
+    bgFrontPlatform = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'backgFrontPlatform');
+
+    PlPrincipalPlatform = game.add.sprite(0, 536, 'PrincipalPlatform');
     game.physics.arcade.enable(PlPrincipalPlatform);
     PlPrincipalPlatform.body.immovable = true;
 
@@ -50,9 +50,9 @@ function createPlatformLevel() {
 
     //transicion desde el nivel anterior
     platformInitTransicion = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'transicionIn');
-    platformInitTransicion.animations.add('entry', [7, 6, 5, 4, 3, 2, 1, 0 ], true, false);
-    platformInitTransicion.animations.play('entry', 13); 
-    game.time.events.add(805, hideSprite, this);   
+    platformInitTransicion.animations.add('entry', [7, 6, 5, 4, 3, 2, 1, 0], true, false);
+    platformInitTransicion.animations.play('entry', 13);
+    game.time.events.add(805, hideSprite, this);
 }
 
 function updatePlatformLevel() {
@@ -78,12 +78,17 @@ function updatePlatformLevel() {
         stopPlayer();
     }
 
+    // Salto pingüino
+    if (cursors.up.isDown && player.body.touching.down) {
+        player.body.velocity.y = -PLAYER_VELOCITY * 1.5;
+    }
+
     //Collide with the ground
     game.physics.arcade.collide(player, PlPrincipalPlatform);
 
 }
 
-function createPlayer(){
+function createPlayer() {
     //Create player
     player = game.add.sprite(35, 410, 'prota');
     player.anchor.setTo(0.5, 0.5);
@@ -101,7 +106,7 @@ function createPlayer(){
     player.animations.add('right', [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37], true);
 }
 
-function createControls(){
+function createControls() {
     //Controls
     cursors = game.input.keyboard.createCursorKeys();
 }
@@ -115,6 +120,6 @@ function stopPlayer() {
     }
 }
 
-function hideSprite(){
+function hideSprite() {
     platformInitTransicion.visible = false;
 }
